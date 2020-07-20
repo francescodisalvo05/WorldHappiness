@@ -20,3 +20,52 @@ These records concern 2015-2020, therefore there are six files, one for each yea
 2) Which are the ten happiest countries of 2020?
 3) What is the trend of happiness about these ten countries between 2015-2020?
 4) What is the correlation between the parametres? 
+
+## Let's start
+First of all, we need to import all the modules, in particular **Pandas** and **Numpy** for the data manipulation, then **Matplotlib** and **Seaborn** for the data visualization.
+
+```
+import numpy as np
+import pandas as pd
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+```
+
+Then we need to import all the dataset that are on the CSV folder. 
+```
+df_2015 = pd.read_csv('CSV/2015.csv')
+df_2016 = pd.read_csv('CSV/2016.csv')
+df_2017 = pd.read_csv('CSV/2017.csv')
+df_2018 = pd.read_csv('CSV/2018.csv')
+df_2019 = pd.read_csv('CSV/2019.csv')
+df_2020 = pd.read_csv('CSV/2020.csv')
+```
+
+At this point we have to check if there is any null value. By the canonical synstax df.isnull() we'll have the full output with True and False, but as you can imaga, it isn't so easy to check. 
+
+![Error](https://github.com/francescodisalvo05/WorldHappiness/blob/master/Screen/Screen1.jpg?raw=true)
+
+An easier way can be the following one: 
+```
+df_2020.isnull().sum()
+```
+![Error](https://github.com/francescodisalvo05/WorldHappiness/blob/master/Screen/Screen2.jpg?raw=true)
+
+So we can do that for every single dataframe. Now we're ready for answering to all the questions.
+
+### 1) Which are the ten least happy countries of 2020?
+We can get these countries by sorting the dataset by "Ladder score", and get the first 10 records. Now, by seaborn, we can plot the result in an easy barplot, defining the x axe as "Ladder Score", the y axe as "Country name" and givid the filtered dataset with only these ten countries. 
+```
+less10 = df_2020.sort_values(by='Ladder score').head(10)
+sns.barplot(x="Ladder score", y="Country name", data=less10, palette="Blues").set_title("10 unhappiest countries")
+```
+![Error](https://github.com/francescodisalvo05/WorldHappiness/blob/master/Screen/Screen3.jpg?raw=true)
+
+### 2) Which are the ten happiest countries of 2020?
+This answer is specular to the previous one. In fact, we can get the firsts ten countries just by the attribute: ```ascending=False```
+```
+top10 = df_2020.sort_values(by='Ladder score', ascending=False).head(10)
+sns.barplot(x="Ladder score", y="Country name", data=top10, palette="Blues").set_title("10 happiest countries")
+```
+![Error](https://github.com/francescodisalvo05/WorldHappiness/blob/master/Screen/Screen4.jpg?raw=true)
