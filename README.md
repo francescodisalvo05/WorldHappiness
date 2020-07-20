@@ -1,4 +1,4 @@
-# WorldHappiness
+# World Happiness
 This analysis is about the World Happiness. This report give us information about the "perceived happiness" of 153 countries, by a general rank, justified by single score on various parametres, as Economy, Health..
 
 ### Dataset
