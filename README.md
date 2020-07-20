@@ -58,6 +58,7 @@ So we can do that for every single dataframe. Now we're ready for answering to a
 We can get these countries by sorting the dataset by "Ladder score", and get the first 10 records. Now, by seaborn, we can plot the result in an easy barplot, defining the x axe as "Ladder Score", the y axe as "Country name" and givid the filtered dataset with only these ten countries. 
 ```
 less10 = df_2020.sort_values(by='Ladder score').head(10)
+plt.figure(figsize=(12, 8))
 sns.barplot(x="Ladder score", y="Country name", data=less10, palette="Blues").set_title("10 unhappiest countries")
 ```
 ![Error](https://github.com/francescodisalvo05/WorldHappiness/blob/master/Screen/Screen3.jpg?raw=true)
@@ -66,6 +67,27 @@ sns.barplot(x="Ladder score", y="Country name", data=less10, palette="Blues").se
 This answer is specular to the previous one. In fact, we can get the firsts ten countries just by the attribute: ```ascending=False```
 ```
 top10 = df_2020.sort_values(by='Ladder score', ascending=False).head(10)
+plt.figure(figsize=(12, 8))
 sns.barplot(x="Ladder score", y="Country name", data=top10, palette="Blues").set_title("10 happiest countries")
 ```
 ![Error](https://github.com/francescodisalvo05/WorldHappiness/blob/master/Screen/Screen4.jpg?raw=true)
+
+### 4) What is the correlation between the parametres? 
+First of all we need to drop some unuseful columns, ad "Standard error of ladder score" et simila. After that, we can watch the correlation by using a simple heatmap. For using the heatmap we need the correlation matrix, and we can easy calculate that as "df.corr()". annot=True allows to show the exactly value of each correlation, and cmap allows to define a particular colors palette. 
+
+```
+df_2020_cleaned = df_2020.drop(['Standard error of ladder score',
+                                'upperwhisker',
+                                'lowerwhisker',
+                                'Explained by: Log GDP per capita',
+                                'Explained by: Freedom to make life choices',
+                                'Explained by: Social support',
+                                'Explained by: Healthy life expectancy',
+                                'Explained by: Generosity',
+                                'Explained by: Perceptions of corruption',                           
+                          ], axis=1)
+
+plt.figure(figsize=(14, 10))
+sns.heatmap(df_2020_cleaned.corr(), annot=True, cmap="Blues")
+```
+![Error](https://github.com/francescodisalvo05/WorldHappiness/blob/master/Screen/Screen6.jpg?raw=true)
