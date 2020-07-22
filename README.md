@@ -73,7 +73,7 @@ sns.barplot(x="Ladder score", y="Country name", data=top10, palette="Blues").set
 ![Error](https://github.com/francescodisalvo05/WorldHappiness/blob/master/Screen/Screen4.jpg?raw=true)
 
 ### 3) What is the trend of happiness about a single country in 2015-2020?
-For answering to this question we have to get every "score" in our datasets. So we can creare an object with all these record, and then we can create DataFrame with the proper index.
+To answering this question we have to get every "score" in our datasets. So we can creare an object with all these record, and then we can create DataFrame with the proper index.
 
 For example, we can analize the Italy's trend
 ```
