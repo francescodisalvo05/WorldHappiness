@@ -18,7 +18,7 @@ These records concern 2015-2020, therefore there are six files, one for each yea
 ### Questions
 1) Which are the ten least happy countries of 2020?
 2) Which are the ten happiest countries of 2020?
-3) What is the trend of happiness about these ten countries between 2015-2020?
+3) What is the trend of happiness about a single country in 2015-2020?
 4) What is the correlation between the parametres? 
 
 ## Let's start
@@ -72,6 +72,39 @@ sns.barplot(x="Ladder score", y="Country name", data=top10, palette="Blues").set
 ```
 ![Error](https://github.com/francescodisalvo05/WorldHappiness/blob/master/Screen/Screen4.jpg?raw=true)
 
+### 3) What is the trend of happiness about a single country in 2015-2020?
+For answering to this question we have to get every "score" in our datasets. So we can creare an object with all these record, and then we can create DataFrame with the proper index.
+
+For example, we can analize the Italy's trend
+```
+scores_Italy = {'Score': [ df_2015[df_2015["Country"] == "Italy"]["Happiness Score"].item(),
+                           df_2016[df_2016["Country"] == "Italy"]["Happiness Score"].item(),
+                           df_2017[df_2017["Country"] == "Italy"]["Happiness.Score"].item(),
+                           df_2018[df_2018["Country or region"] == "Italy"]["Score"].item(),
+                           df_2019[df_2019["Country or region"] == "Italy"]["Score"].item(),
+                           df_2020[df_2020["Country name"] == "Italy"]["Ladder score"].item()]
+               }
+plt.figure(figsize=(12,8))
+df = pd.DataFrame(data=scores_Italy, index=[2015,2016,2017,2018,2019,2020])
+sns.lineplot(data=df).set_title("Italian trend")
+```
+![Error](https://github.com/francescodisalvo05/WorldHappiness/blob/master/Screen/Screen5.jpg?raw=true)
+
+Otherwise the Australian's one
+```
+scores_Australia = {'Score': [ df_2015[df_2015["Country"] == "Australia"]["Happiness Score"].item(),
+                           df_2016[df_2016["Country"] == "Australia"]["Happiness Score"].item(),
+                           df_2017[df_2017["Country"] == "Australia"]["Happiness.Score"].item(),
+                           df_2018[df_2018["Country or region"] == "Australia"]["Score"].item(),
+                           df_2019[df_2019["Country or region"] == "Australia"]["Score"].item(),
+                           df_2020[df_2020["Country name"] == "Australia"]["Ladder score"].item()]
+               }
+plt.figure(figsize=(12,8))
+df = pd.DataFrame(data=scores_Australia, index=[2015,2016,2017,2018,2019,2020])
+sns.lineplot(data=df).set_title("Australian trend")
+```
+![Error](https://github.com/francescodisalvo05/WorldHappiness/blob/master/Screen/Screen6a.jpg?raw=true)
+
 ### 4) What is the correlation between the parametres? 
 First of all we need to drop some unuseful columns, ad "Standard error of ladder score" et simila. After that, we can watch the correlation by using a simple heatmap. For using the heatmap we need the correlation matrix, and we can easy calculate that as "df.corr()". annot=True allows to show the exactly value of each correlation, and cmap allows to define a particular colors palette. 
 
@@ -90,4 +123,7 @@ df_2020_cleaned = df_2020.drop(['Standard error of ladder score',
 plt.figure(figsize=(14, 10))
 sns.heatmap(df_2020_cleaned.corr(), annot=True, cmap="Blues")
 ```
-![Error](https://github.com/francescodisalvo05/WorldHappiness/blob/master/Screen/Screen6.jpg?raw=true)
+![Error](https://github.com/francescodisalvo05/WorldHappiness/blob/master/Screen/Screen7.jpg?raw=true)
+
+## Conclusion
+After this short analysis we can say that the perception of happiness is extremely variable (as we have seen on Italy's and Australian's tred). Then, thanks to the last plot, we can also say that it's not quite true that "money can't buy happiness", in fact the Happiness Score (or Ladder Score) is strongly affected by the "Logged GDP per capita" but also by "Health Life expectancy" and "Social Support".
